@@ -38,12 +38,12 @@ include $(TOP)/configure/RULES
 
 $(TOP)/vendor/ffmpeg-%/ffbuild/config.mak: $(TOP)/vendor/yasm-%/yasm
 	mkdir -p $(TOP)/vendor/ffmpeg-$(*F)
-	cd $(TOP)/vendor/ffmpeg-$(*F) && export PATH=${PATH}:../yasm-$(*F) && sh ../ffmpeg/configure $(CONFIGOPTIONS) && make && make install
+	cd $(TOP)/vendor/ffmpeg-$(*F) && export PATH=${PATH}:../yasm-$(*F) && sh ../ffmpeg/configure $(CONFIGOPTIONS) && make -sj && make install
 	$(MAKE) install
 
 $(TOP)/vendor/yasm-%/yasm:
 	mkdir -p $(TOP)/vendor/yasm-$(*F)
-	cd $(TOP)/vendor/yasm-$(*F) && sh ../yasm/configure && make
+	cd $(TOP)/vendor/yasm-$(*F) && sh ../yasm/configure && make -sj
 	touch $@
 	
 # unfortunately the libs are not compatible with the opt/ref flag and pre-2012
