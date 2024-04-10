@@ -7,10 +7,11 @@ YASM="http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz"
 set -e
 
 # remove ffmpeg things in vendor dir
-rm -rf vendor/ffmpeg*
-rm -rf vendor/yasm*
+# rm -rf vendor/ffmpeg*
+# rm -rf vendor/yasm*
 
-
+if [ ! -d vendor/ffmpeg ];
+then
 # Now get the the zip files
 for z in $SOURCE  $YASM; do
     wget -P "vendor" $z
@@ -27,6 +28,7 @@ tar xf "vendor/$(basename $YASM)" -C "vendor"
 # move the untarred archives to the correct names
 mv "vendor/${VERSION}" "vendor/ffmpeg"
 mv "vendor/yasm-1.2.0" "vendor/yasm"
+fi
 
 echo "You can now type make to build this module"
 
